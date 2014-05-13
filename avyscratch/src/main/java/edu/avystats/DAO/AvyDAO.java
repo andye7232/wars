@@ -1,6 +1,7 @@
 package edu.avystats.DAO;
 
 
+import java.security.interfaces.RSAKey;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +10,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
-
-
-
-
-
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
@@ -21,6 +17,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 
 import com.jolbox.bonecp.BoneCPDataSource;
@@ -105,19 +102,12 @@ public class AvyDAO {
 		return this.jdbctemplate.query("SELECT * FROM avy_preprod.avalanches as q1 INNER JOIN avy_preprod.location_lu as q2 ON q1.location_id_lu=q2.location_id WHERE (acos(sin(abs("+latitude+")*pi()/180)*sin(cast(q2.latitude as DOUBLE PRECISION)*pi()/180)+cos(abs("+latitude+")*pi()/180)*cos(cast(q2.latitude as DOUBLE PRECISION)*pi()/180)*cos(abs("+longitude+"*pi()/180)-(cast(longitude AS DOUBLE PRECISION)*pi()/180))))*6381<=120 LIMIT 7", new AvyMapper());
 	}
 	
-	public List<MeansVar> findobs(String o1,String o2,double latitude,double longitude){
+	public List<MeansVar> findKMeans(String o1,String o2,double latitude,double longitude){
 		String query="SELECT ";
 		
-		if(o1.compareTo("precipitation")!=0 && o2.compareTo("precipitation")!=0){
-			query+=o1+","+o2+" FROM avy_preprod.avalanches as t1 INNER JOIN avy_preprod.table_lu ON t1.location_id_lu=t2.location_id WHERE ";
-		}
-		else if(o1.compareTo("precipitation")==0)
-		{
-			
-		}
-		else if(o2.compareTo("precipitation")==0){
-			
-		}
+		query+="cast(t1."+o1+" as DOUBLE PRECISION) as "+o1+", cast(t1."+o2+" as DOUBLE PRECISION) as "+o2+", t2.location_id FROM avy_preprod.avalanches as t1 INNER JOIN avy_preprod.location_lu as t2 ON t1.location_id_lu=t2.location_id WHERE t1."+o1+" IS NOT NULL AND t1."+o2+" IS NOT NULL ";
+		
+		System.out.println(query);
 		
 		return this.jdbctemplate.query(query, new MeansMapper());
 	}
@@ -125,9 +115,15 @@ public class AvyDAO {
 	public static final class MeansMapper implements RowMapper<MeansVar>{
 
 		@Override
-		public MeansVar mapRow(ResultSet arg0, int arg1) throws SQLException {
+		public MeansVar mapRow(ResultSet rs, int size) throws SQLException {
 			// TODO Auto-generated method stub
-			return null;
+			MeansVar mv=new MeansVar();
+			mv.setO1(rs.getMetaData().getColumnName(1).toUpperCase());
+			mv.setO2(rs.getMetaData().getColumnName(2).toUpperCase());
+			mv.setMv1(rs.getDouble(1));
+			mv.setMv2(rs.getDouble(2));
+			mv.setLocationID(rs.getInt("location_id"));
+			return mv;
 		}
 	
 	}

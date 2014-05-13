@@ -181,7 +181,7 @@
 			
 			
 			if(response==true){
-				document.getElementById('statstable').innerHTML=texttable;
+				document.getElementById('maintable').innerHTML=texttable;
 			}
 			
 			
@@ -203,15 +203,16 @@
     		optsstr+="&latitude="+latitude+"&longitude="+longitude;
     
     		$.post("http://localhost:8080/tables/kmeans",optsstr,function(data,status){
-    			alert(status);
-    			/*
+    			
+    			var tabletext=null;
+    			
     			if(status=="success" && data != 'undefined' && data != null){
-    				for(var i=0){
-    					tabletext=(tabletext==null)?"<p>Cluster "+i+"</p><p>getJsonTables(data[i])</p>:tabletext+"<br/><p>Cluster "+i+"</p><p>"+getJsonTables(data[i])+"</p>";
+    				for(var i=0; i<data.length;i++){
+    					tabletext=(tabletext==null)?"<p><b>Cluster "+i+"</b></p><p>"+getJsonTables(data[i])+"</p>":tabletext+"<br/><p><b>Cluster "+i+"</b></p><p>"+getJsonTables(data[i])+"</p>";
     				}
-    				document.getElementById('statstable').innerHTML=
+    				document.getElementById('statstable').innerHTML=tabletext;
     			}
-    			*/
+    			
     		}); 
     		
     	}
@@ -403,7 +404,6 @@
 		<select name="o1" id="o1">
 			<option value="time">Time</option>
 			<option value="elevation" selected>Elevation</option>
-			<option value="precipitation">Precipitation</option>
 			<option value="month">Month</option>
 			<option value="angle">Angle</option>
 		</select>
@@ -412,15 +412,16 @@
 		<select name="o2" id="o2">
 			<option value="elevation">Elevation</option>
 			<option value="width">Width</option>
-			<option value="precipitation">Precipitation</option>
 			<option value="pathsize" selected>Path Size</option>
 		</select>
 	</form>
 	<input type="button" onClick="getStats()" value="Get Stats"/>
 	</p>
 	<p>
+		<center>
 		<div id="statstable" name="statstable">
 		</div>
+		</center>
 	</p>
 </div>
 </div>

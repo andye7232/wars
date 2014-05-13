@@ -2,6 +2,7 @@ package edu.avystats.DAO;
 
 public class MeansVar {
 
+	private int locationID;
 	private String o1;
 	private String o2;
 	private double mv1;
@@ -11,6 +12,26 @@ public class MeansVar {
 	public MeansVar(){
 		
 	}
+
+
+	public int getLocationID() {
+		return locationID;
+	}
+
+
+
+	public void setLocationID(int locationID) {
+		this.locationID = locationID;
+	}
+
+
+
+
+
+
+
+
+
 
 
 	public String getO1() {
