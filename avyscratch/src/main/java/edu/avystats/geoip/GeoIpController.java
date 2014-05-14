@@ -38,7 +38,7 @@ public class GeoIpController{
 	@RequestMapping(value="/geoip",method = RequestMethod.POST)
 	public ResponseEntity<String> newAnswer(@RequestParam(value="getip",required=true) Boolean getip){
 		
-		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("file:C:/Users/andy/Documents/DB/avy.xml");
+		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("avy.xml");
 
 		ServletRequestAttributes requestAttributes = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
 		String ip=requestAttributes.getRequest().getRemoteAddr();

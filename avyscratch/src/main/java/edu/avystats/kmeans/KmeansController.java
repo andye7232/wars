@@ -39,7 +39,7 @@ public class KmeansController {
 	        ,@RequestParam( value="longitude", required=true ) double longitude){
 		
 		if(o1 != null && o2 != null){
-		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("file:C:/Users/andy/Documents/DB/avy.xml");
+		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("avy.xml");
 
 		AvyDAO dao=(AvyDAO) ctx.getBean("AvyDAO");
 		

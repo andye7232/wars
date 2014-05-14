@@ -59,7 +59,7 @@ public class HomeController {
 		
 		
 	
-		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("file:C:/Users/andy/Documents/DB/avy.xml");
+		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("avy.xml");
 		
 		GeoDBPath gpath=(GeoDBPath) ctx.getBean("GPS");
 		

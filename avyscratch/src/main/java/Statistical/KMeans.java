@@ -43,18 +43,14 @@ public class KMeans {
 		ArrayList<MeansVar> outlist=new ArrayList<MeansVar>();
 		
 		for(MeansVar var: vals){
-			System.out.println(var.getMv1()+" "+var.getMv2());
-			System.out.println("\n");
 			clusterInput.add(new PointWrapper(var));
 		}
 		
 		KMeansPlusPlusClusterer<PointWrapper> clusterer = new KMeansPlusPlusClusterer<PointWrapper>(10,1000);
 		List<CentroidCluster<PointWrapper>> clusterResults = clusterer.cluster(clusterInput);
-		System.out.println(clusterResults.size());
 		// output the clusters
 		for (int i=0; i<clusterResults.size(); i++) {
 		    for (PointWrapper pointWrapper : clusterResults.get(i).getPoints()){
-		    	System.out.println(pointWrapper.getMeansVar().getMv1()+" "+pointWrapper.getMeansVar().getMv2());
 		        outlist.add(pointWrapper.getMeansVar());
 			}
 		    overlist.add(outlist);

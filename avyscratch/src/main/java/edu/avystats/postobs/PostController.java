@@ -32,7 +32,7 @@ public class PostController {
 			
 				HttpHeaders headers=new HttpHeaders();
 				headers.set("Content-Type","text/html; charset=utf-8");
-				ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("file:C:/Users/andy/Documents/DB/avy.xml");
+				ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("avy.xml");
 				
 				AvyDAO avyobjs=(AvyDAO) ctx.getBean("AvyDAO");
 			

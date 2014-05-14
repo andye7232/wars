@@ -5,13 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
+
 
 
 import javax.annotation.*;
@@ -28,11 +31,14 @@ public class GeoServicesDB {
 	private double latitude=40.326864;
 	
 	protected GeoServicesDB(String indat){
-		File f=new File(indat);
+		URL file=getClass().getClassLoader().getResource(indat);
+		
+		File f=new File(file.toString().replaceAll("file:|\\s", ""));
 		
 
 		if(f.exists()){
 			try {
+				
 				reader=new DatabaseReader.Builder(new FileInputStream(f)).build();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

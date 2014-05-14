@@ -49,7 +49,7 @@ public class ExpandController {
 	        , @RequestParam( value="longitude", required=true ) String longitude
 	        ){
 		
-			ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("file:C:/Users/andy/Documents/DB/avy.xml");
+			ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("avy.xml");
 		
 			AvyDAO avyobjs=(AvyDAO) ctx.getBean("AvyDAO");
 		

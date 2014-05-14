@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd" default-lazy-init="false">
+		
+<context:annotation-config/>
+ <context:component-scan base-package="com.hygenics.crawler" />
+<bean id="props" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+        <list>
+			<!--<value>file:D:/scrape/Spring/Properties/SpringProperties.properties</value>
+			<value>file:D:/scrape/Spring/Properties/YazzProps.properties</value>-->
+        </list>
+    </property>
+</bean>
+
+	<!--  DAO Mapper Goes Here-->
+	<bean id="AvyDAO" class="edu.avystats.DAO.AvyDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- Data Source Goes Here: Do Not change -->
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="org.postgresql.Driver"/>
+		<property name="jdbcUrl" value="jdbc:postgresql://50.63.141.236:5432/avypreproduction" />
+		<property name="username" value="avyscraper" />
+		<property name="password" value="avyscraper" />
+		<property name="idleConnectionTestPeriod" value="30"/>
+   		<property name="idleMaxAge" value="50"/>
+   		<property name="maxConnectionsPerPartition" value="5"/>
+   		<property name="minConnectionsPerPartition" value="4"/>
+   		<property name="partitionCount" value="3"/>
+   		<property name="acquireIncrement" value="10"/>
+   		<property name="statementsCacheSize" value="100"/>
+	</bean>
+	
+	<bean id="GPS" class="edu.avystats.geoservices.GeoDBPath">
+		<property name="fpath" value="geoservices/GeoLite2-City.mmdb"/>
+	</bean>
+
+</beans>
