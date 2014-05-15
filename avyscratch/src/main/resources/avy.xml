@@ -31,18 +31,11 @@
 	</bean>
 	
 	<!-- Data Source Goes Here: Do Not change -->
-	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-		<property name="driverClass" value="org.postgresql.Driver"/>
-		<property name="jdbcUrl" value="jdbc:postgresql://50.63.141.236:5432/avypreproduction" />
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://50.63.141.236:5432/avypreproduction" />
 		<property name="username" value="avyscraper" />
 		<property name="password" value="avyscraper" />
-		<property name="idleConnectionTestPeriod" value="30"/>
-   		<property name="idleMaxAge" value="50"/>
-   		<property name="maxConnectionsPerPartition" value="5"/>
-   		<property name="minConnectionsPerPartition" value="4"/>
-   		<property name="partitionCount" value="3"/>
-   		<property name="acquireIncrement" value="10"/>
-   		<property name="statementsCacheSize" value="100"/>
 	</bean>
 	
 	<bean id="GPS" class="edu.avystats.geoservices.GeoDBPath">

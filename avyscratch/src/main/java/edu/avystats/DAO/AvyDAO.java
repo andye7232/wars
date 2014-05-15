@@ -20,7 +20,8 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 
 
 
-import com.jolbox.bonecp.BoneCPDataSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 
 public class AvyDAO {
 
@@ -30,7 +31,7 @@ public class AvyDAO {
 		
 	}
 	
-	public void setDataSource(BoneCPDataSource datasource){
+	public void setDataSource(DriverManagerDataSource datasource){
 		jdbctemplate=new JdbcTemplate(datasource);
 	}
 	

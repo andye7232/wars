@@ -89,7 +89,7 @@
     	function writeMainTable(){
     		response=true;
     		//get data from ajax post to spring
-			$.post("http://localhost:8080/tables/expand",{
+			$.post("/avyproject/expand",{
 				type:tabletype,
 				current:current,
 				latitude:latitude,
@@ -202,7 +202,7 @@
     		var optsstr=$("#statsform").serialize();
     		optsstr+="&latitude="+latitude+"&longitude="+longitude;
     
-    		$.post("http://localhost:8080/tables/kmeans",optsstr,function(data,status){
+    		$.post("/avyproject/kmeans",optsstr,function(data,status){
     			
     			var tabletext=null;
     			
@@ -224,7 +224,7 @@
     			formvis=false;
     			var datastr=$('#obsform').serialize();
     			//submit the observation
-    			$.post("http://localhost:8080/tables/postobs",datastr);  			
+    			$.post("/avyproject/postobs",datastr);  			
     		
     			//if the type is observations
     			if(tabletype=='observations'){
@@ -241,7 +241,7 @@
 		function changeMap(intype){
     		
     		if(markers == null){
-    			$.post("http://localhost:8080/tables/expand",{
+    			$.post("/avyproject/expand",{
     				type:"mapcoord",
     				current:current,
     				latitude:latitude,
@@ -270,7 +270,7 @@
     	
     	function getMarkers(){
   
-    		$.post("http://localhost:8080/tables/expand",{
+    		$.post("/avyproject/expand",{
 				type:"mapcoord",
 				current:current,
 				latitude:latitude,
@@ -297,7 +297,7 @@
     
     	
     	$(document).ready(function(){
-    		$.post("http://localhost:8080/tables/geoip",{
+    		$.post("/avyproject/geoip",{
 				getip:true,
 			},
 			function(data,status){
